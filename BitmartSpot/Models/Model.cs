@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 namespace BitmartApiClient.Models {
-    public class Model<T> {
+    public class Model {
         [JsonProperty("code")]
         public int Code { get; set; }
 
@@ -10,8 +10,5 @@ namespace BitmartApiClient.Models {
 
         [JsonProperty("message")]
         public string Message { get; set; }
-
-        [JsonProperty("data")]
-        public T Data { get; set; }
     }
 }
