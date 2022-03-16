@@ -11,8 +11,15 @@
         }
         public async Task<Models.SystemStatus.GetSystemTime.Response> GetSystemTime() {
             var url = $"{BASE_URL}/system/time";
-            var timeRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.SystemStatus.GetSystemTime.Response>(timeRequest);
+            var getSystemTimeRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.SystemStatus.GetSystemTime.Response>(getSystemTimeRequest);
+            return response;
+        }
+
+        public async Task<Models.SystemStatus.GetSystemServiceStatus.Response> GetSystemServiceStatus() {
+            var url = $"{BASE_URL}/system/service";
+            var getSystemServiceStatusRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.SystemStatus.GetSystemServiceStatus.Response>(getSystemServiceStatusRequest);
             return response;
         }
     }
