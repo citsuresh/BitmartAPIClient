@@ -12,7 +12,7 @@ namespace BitmartApiClientTest {
         public void Setup() {
             _client = new BitmartApiClient.Client(_key, _secret, _memo);
         }
-
+        /*********************************** System Status Tests Start ***********************************/
         [Test]
         public void TestGetSystemTime() {
             Task.Run(async () => {
@@ -28,5 +28,32 @@ namespace BitmartApiClientTest {
                 Assert.IsInstanceOf<BitmartApiClient.Models.SystemStatus.GetSystemServiceStatus.Response>(response);
             }).GetAwaiter().GetResult();
         }
+        /*********************************** System Status Tests End ***********************************/
+
+        /*********************************** Restful Public Market Data Tests Start ***********************************/
+        [Test]
+        public void TestGetCurrencyList() {
+            Task.Run(async () => {
+                var response = await _client.GetCurrencyList();
+                Assert.IsInstanceOf<BitmartApiClient.Models.RestfulPublicMarketData.GetCurrencyList.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetListOfTradingPairs() {
+            Task.Run(async () => {
+                var response = await _client.GetListOfTradingPairs();
+                Assert.IsInstanceOf<BitmartApiClient.Models.RestfulPublicMarketData.GetListOfTradingPairs.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetListOfTradingPairDetails() {
+            Task.Run(async () => {
+                var response = await _client.GetListOfTradingPairDetails();
+                Assert.IsInstanceOf<BitmartApiClient.Models.RestfulPublicMarketData.GetListOfTradingPairDetails.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+        /*********************************** Restful Public Market Data Tests End ***********************************/
     }
 }
