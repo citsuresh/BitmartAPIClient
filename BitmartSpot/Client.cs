@@ -46,6 +46,41 @@
             var response = await Request.Get<Models.RestfulPublicMarketData.GetListOfTradingPairDetails.Response>(getListOfTradingPairDetailsRequest);
             return response;
         }
+
+        public async Task<Models.RestfulPublicMarketData.GetTicker.Response> GetTicker(string aSymbol) {
+            var url = $"{BASE_URL}/spot/v1/ticker?symbol={aSymbol}";
+            var getTickerRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.RestfulPublicMarketData.GetTicker.Response>(getTickerRequest);
+            return response;
+        }
+
+        public async Task<Models.RestfulPublicMarketData.GetKLineStep.Response> GetKLineStep(string aSymbol) {
+            var url = $"{BASE_URL}/spot/v1/steps?symbol={aSymbol}";
+            var getKLineStepRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.RestfulPublicMarketData.GetKLineStep.Response>(getKLineStepRequest);
+            return response;
+        }
+
+        public async Task<Models.RestfulPublicMarketData.GetKLine.Response> GetKLine(string aSymbol, long aFromTimestamp, long aToTimestamp, long aStep = 1) {
+            var url = $"{BASE_URL}/spot/v1/symbols/kline?symbol={aSymbol}&step={aStep}&from={aFromTimestamp}&to={aToTimestamp}";
+            var getKLineRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.RestfulPublicMarketData.GetKLine.Response>(getKLineRequest);
+            return response;
+        }
+
+        public async Task<Models.RestfulPublicMarketData.GetDepth.Response> GetDepth(string aSymbol, int aPrecision) {
+            var url = $"{BASE_URL}/spot/v1/symbols/book?symbol={aSymbol}&precision={aPrecision}";
+            var getDepthRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.RestfulPublicMarketData.GetDepth.Response>(getDepthRequest);
+            return response;
+        }
+
+        public async Task<Models.RestfulPublicMarketData.GetRecentTrades.Response> GetRecentTrades(string aSymbol) {
+            var url = $"{BASE_URL}/spot/v1/symbols/trades?symbol={aSymbol}";
+            var getRecentTradesRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
+            var response = await Request.Get<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
+            return response;
+        }
         /*********************************** Restful Public Market Data Methods End ***********************************/
     }
 }
