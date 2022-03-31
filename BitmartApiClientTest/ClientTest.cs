@@ -98,5 +98,112 @@ namespace BitmartApiClientTest {
             }).GetAwaiter().GetResult();
         }
         /*********************************** Restful Public Market Data Tests End ***********************************/
+
+        /*********************************** Funding Account Tests Start ***********************************/
+        [Test]
+        public void TestGetAccountBalance() {
+            Task.Run(async () => {
+                var response = await _client.GetAccountBalance();
+                Assert.IsInstanceOf<BitmartApiClient.Models.FundingAccount.GetAccountBalance.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetCurrencies() {
+            Task.Run(async () => {
+                var response = await _client.GetCurrencies();
+                Assert.IsInstanceOf<BitmartApiClient.Models.FundingAccount.GetCurrencies.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetSpotWalletBalance() {
+            Task.Run(async () => {
+                var response = await _client.GetSpotWalletBalance();
+                Assert.IsInstanceOf<BitmartApiClient.Models.FundingAccount.GetSpotWalletBalance.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestDepositAddress() {
+            Task.Run(async () => {
+                var response = await _client.DepositAddress("USDT-TRC20");
+                Assert.IsInstanceOf<BitmartApiClient.Models.FundingAccount.DepositAddress.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetDepositAndWithdrawHistory() {
+            Task.Run(async () => {
+                var response = await _client.GetDepositAndWithdrawHistory(100, "withdraw");
+                Assert.IsInstanceOf<BitmartApiClient.Models.FundingAccount.GetDepositAndWithdrawHistory.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetADepositOrWithdrawDetail() {
+            var id = ""; //Enter appropriate id here to run actual test
+            if(id=="") {
+                Assert.Pass();
+                return;
+            }
+            Task.Run(async () => {
+                var response = await _client.GetADepositOrWithdrawDetail(id);
+                Assert.IsInstanceOf<BitmartApiClient.Models.FundingAccount.GetADepositOrWithdrawDetail.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+        /*********************************** Funding Account Tests End ***********************************/
+
+        /*********************************** Transaction Order Tests Start ***********************************/
+        [Test]
+        public void TestGetUserOrderHistory() {
+            Task.Run(async () => {
+                var response = await _client.GetUserOrderHistory("BTC_USDT", 100, BitmartApiClient.Models.TransactionOrder.GetUserOrderHistory.Status.PlacingOrder);
+                Assert.IsInstanceOf<BitmartApiClient.Models.TransactionOrder.GetUserOrderHistory.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetUserTradeHistory() {
+            Task.Run(async () => {
+                var response = await _client.GetUserTradeHistory("BTC_USDT");
+                Assert.IsInstanceOf<BitmartApiClient.Models.TransactionOrder.GetUserTradeHistory.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestGetOrderDetail() {
+            var id = ""; //Enter appropriate id here to run actual test
+            if (id == "") {
+                Assert.Pass();
+                return;
+            }
+            Task.Run(async () => {
+                var response = await _client.GetOrderDetail(id);
+                Assert.IsInstanceOf<BitmartApiClient.Models.TransactionOrder.GetOrderDetail.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestCancelAllOrders() {
+            Task.Run(async () => {
+                var response = await _client.CancelAllOrders("BTC_USDT", BitmartApiClient.Models.TransactionOrder.Side.BUY);
+                Assert.IsInstanceOf<BitmartApiClient.Models.Model>(response);
+            }).GetAwaiter().GetResult();
+        }
+
+        [Test]
+        public void TestCancelOrder() {
+            var id = 0; //Enter appropriate id here to run actual test
+            if (id == 0) {
+                Assert.Pass();
+                return;
+            }
+            Task.Run(async () => {
+                var response = await _client.CancelOrder(id);
+                Assert.IsInstanceOf<BitmartApiClient.Models.TransactionOrder.CancelOrder.Response>(response);
+            }).GetAwaiter().GetResult();
+        }
+        /*********************************** Transaction Order Tests End ***********************************/
     }
 }

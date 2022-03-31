@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 
 namespace BitmartApiClient {
@@ -7,10 +9,25 @@ namespace BitmartApiClient {
         internal static readonly string UserAgent =
             $"{AssemblyVersionInformation.AssemblyProduct}/{AssemblyVersionInformation.AssemblyVersion} ({AssemblyVersionInformation.AssemblyTitle}; {AssemblyVersionInformation.AssemblyDescription})";
 
+        public static WebRequest CreateRequestWithKey(string aUrl, string aKey, string aRequestMethod) {
+            var request = CreateRequestWithAgent(aUrl, aRequestMethod);
+            request.Headers["X-BM-KEY"] = aKey;
+            return request;
+        }
+
+        public static WebRequest CreateRequestWithSignature(string aUrl, string aKey, string aSecret, string aMemo, string aBody, string aTime, string aRequestMethod) {
+            var request = CreateRequestWithKey(aUrl, aKey, aRequestMethod);
+            if (aBody == "")
+                aBody = request.RequestUri.AbsolutePath;
+            var signature = GenerateSignature(aTime, aSecret, aMemo, aBody);
+            request.Headers["X-BM-SIGN"] = signature;
+            request.Headers["X-BM-TIMESTAMP"] = aTime;
+            return request;
+        }
+
         public static WebRequest CreateRequestWithAgent(string aUrl, string aRequestMethod) {
             var request = CreateRequest(aUrl, aRequestMethod);
             request.Headers["User-Agent"] = UserAgent;
-            request.Headers["Content-Length"] = "0";
             return request;
         }
 
@@ -20,6 +37,17 @@ namespace BitmartApiClient {
             request.Method = aRequestMethod;
             request.Headers["Content-Type"] = "application/json";
             return request;
+        }
+
+        private static string GenerateSignature(string aTimestamp, string aSecret, string aMemo, string aBody) =>
+            CreateSignature(aSecret, $"{aTimestamp}#{aMemo}#{aBody}");
+
+        private static string CreateSignature(string aSecret, string aQueryString) {
+            var keyBytes = Encoding.UTF8.GetBytes(aSecret);
+            var queryStringBytes = Encoding.UTF8.GetBytes(aQueryString);
+            var hmacsha256 = new HMACSHA256(keyBytes);
+            var bytes = hmacsha256.ComputeHash(queryStringBytes);
+            return BitConverter.ToString(bytes).Replace("-", "").ToLower();
         }
 
         public static void AddHeader(WebRequest aRequest, string aHeaderName, string aHeaderValue) => aRequest.Headers[aHeaderName] = aHeaderValue;
@@ -57,21 +85,6 @@ namespace BitmartApiClient {
                 Console.Write($"Web request exception occurred in ${typeof(T)} exchange");
                 throw;
             }
-        }
-
-        public static async Task<T> Get<T>(WebRequest aRequest, string aStringToRemove) {
-            try {
-                string respbody;
-                await using (var resp = (await aRequest.GetResponseAsync()).GetResponseStream()) {
-                    var respR = new StreamReader(resp ?? throw new InvalidOperationException());
-                    respbody = await respR.ReadToEndAsync();
-                }
-                return JsonSerializer.Deserialize<T>(respbody.Replace(aStringToRemove, ""));
-            }
-            catch {
-                Console.Write($"Web request exception occurred in ${typeof(T)} exchange");
-            }
-            return default;
         }
     }
 }
