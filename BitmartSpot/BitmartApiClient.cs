@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 
 namespace BitmartApiClient {
-    public class Client {
+    public class BitmartApiClient : IBitmartApiClient
+    {
         private const string BASE_URL = "https://api-cloud.bitmart.com";
         private string Key { get; }
         private string Secret { get; }
         private string Memo { get; }
-        public Client(string aKey, string aSecret, string aMemo) {
+        public BitmartApiClient(string aKey, string aSecret, string aMemo) {
             Key = aKey;
             Secret = aSecret;
             Memo = aMemo;
