@@ -1,5 +1,4 @@
 ﻿using BitmartApiClient.Utils;
-using System.Threading.Tasks;
 
 namespace BitmartApiClient
 {
@@ -21,7 +20,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/system/time";
             var getSystemTimeRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.SystemStatus.GetSystemTime.Response>(getSystemTimeRequest);
+            var response = await Request.GetAsync<Models.SystemStatus.GetSystemTime.Response>(getSystemTimeRequest);
             return response;
         }
 
@@ -29,7 +28,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/system/service";
             var getSystemServiceStatusRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.SystemStatus.GetSystemServiceStatus.Response>(getSystemServiceStatusRequest);
+            var response = await Request.GetAsync<Models.SystemStatus.GetSystemServiceStatus.Response>(getSystemServiceStatusRequest);
             return response;
         }
         /*********************************** System Status Methods End ***********************************/
@@ -39,7 +38,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/currencies";
             var getCurrencyListRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetCurrencyList.Response>(getCurrencyListRequest);
+            var response = Request.Get<Models.RestfulPublicMarketData.GetCurrencyList.Response>(getCurrencyListRequest);
             return response;
         }
 
@@ -47,7 +46,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/symbols";
             var getListOfTradingPairsRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetListOfTradingPairs.Response>(getListOfTradingPairsRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetListOfTradingPairs.Response>(getListOfTradingPairsRequest);
             return response;
         }
 
@@ -55,7 +54,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/symbols/details";
             var getListOfTradingPairDetailsRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetListOfTradingPairDetails.Response>(getListOfTradingPairDetailsRequest);
+            var response = Request.Get<Models.RestfulPublicMarketData.GetListOfTradingPairDetails.Response>(getListOfTradingPairDetailsRequest);
             return response;
         }
 
@@ -63,7 +62,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/ticker";
             var getTickerRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetTicker.Response>(getTickerRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetTicker.Response>(getTickerRequest);
             return response;
         }
 
@@ -71,7 +70,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/ticker?symbol={aSymbol}";
             var getTickerRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetTicker.Response>(getTickerRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetTicker.Response>(getTickerRequest);
             return response;
         }
 
@@ -79,7 +78,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/steps?symbol={aSymbol}";
             var getKLineStepRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetKLineStep.Response>(getKLineStepRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetKLineStep.Response>(getKLineStepRequest);
             return response;
         }
 
@@ -87,7 +86,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/symbols/kline?symbol={aSymbol}&step={aStep}&from={aFromTimestamp}&to={aToTimestamp}";
             var getKLineRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetKLine.Response>(getKLineRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetKLine.Response>(getKLineRequest);
             return response;
         }
 
@@ -95,7 +94,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/symbols/book?symbol={aSymbol}&precision={aPrecision}";
             var getDepthRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetDepth.Response>(getDepthRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetDepth.Response>(getDepthRequest);
             return response;
         }
 
@@ -103,7 +102,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/symbols/book?symbol={aSymbol}&size={limit}";
             var getDepthRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetDepth.Response>(getDepthRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetDepth.Response>(getDepthRequest);
             return response;
         }
 
@@ -111,7 +110,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/trades";
             var getRecentTradesRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
             return response;
         }
 
@@ -119,7 +118,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/trades?symbol={aSymbol}";
             var getRecentTradesRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
             return response;
         }
 
@@ -127,7 +126,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/symbols/trades?symbol={aSymbol}";
             var getRecentTradesRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetRecentTrades.Response>(getRecentTradesRequest);
             return response;
         }
 
@@ -138,7 +137,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/account/v1/wallet?account_type=1";
             var getAccountBalanceRequest = Request.CreateRequestWithKey(url, Key, RequestMethods.GET);
-            var response = await Request.Get<Models.FundingAccount.GetAccountBalance.Response>(getAccountBalanceRequest);
+            var response = await Request.GetAsync<Models.FundingAccount.GetAccountBalance.Response>(getAccountBalanceRequest);
             return response;
         }
 
@@ -146,7 +145,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/account/v1/currencies";
             var getCurrenciesRequest = Request.CreateRequestWithAgent(url, RequestMethods.GET);
-            var response = await Request.Get<Models.FundingAccount.GetCurrencies.Response>(getCurrenciesRequest);
+            var response = await Request.GetAsync<Models.FundingAccount.GetCurrencies.Response>(getCurrenciesRequest);
             return response;
         }
 
@@ -154,7 +153,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/spot/v1/wallet";
             var getSpotWalletBalanceRequest = Request.CreateRequestWithKey(url, Key, RequestMethods.GET);
-            var response = await Request.Get<Models.FundingAccount.GetSpotWalletBalance.Response>(getSpotWalletBalanceRequest);
+            var response = await Request.GetAsync<Models.FundingAccount.GetSpotWalletBalance.Response>(getSpotWalletBalanceRequest);
             return response;
         }
 
@@ -162,7 +161,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/account/v1/deposit/address?currency={aCurrency}";
             var depositAddressRequest = Request.CreateRequestWithKey(url, Key, RequestMethods.GET);
-            var response = await Request.Get<Models.FundingAccount.DepositAddress.Response>(depositAddressRequest);
+            var response = await Request.GetAsync<Models.FundingAccount.DepositAddress.Response>(depositAddressRequest);
             return response;
         }
 
@@ -170,7 +169,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/account/v2/deposit-withdraw/history?N={aNumberOfRecentRecords}&operation_type={anOperationType}&currency={aCurrency}";
             var getDepositAndWithdrawHistoryRequest = Request.CreateRequestWithKey(url, Key, RequestMethods.GET);
-            var response = await Request.Get<Models.FundingAccount.GetDepositAndWithdrawHistory.Response>(getDepositAndWithdrawHistoryRequest);
+            var response = await Request.GetAsync<Models.FundingAccount.GetDepositAndWithdrawHistory.Response>(getDepositAndWithdrawHistoryRequest);
             return response;
         }
 
@@ -178,7 +177,7 @@ namespace BitmartApiClient
         {
             var url = $"{BASE_URL}/account/v1/deposit-withdraw/detail?id={anId}";
             var getADepositOrWithdrawDetailRequest = Request.CreateRequestWithKey(url, Key, RequestMethods.GET);
-            var response = await Request.Get<Models.FundingAccount.GetADepositOrWithdrawDetail.Response>(getADepositOrWithdrawDetailRequest);
+            var response = await Request.GetAsync<Models.FundingAccount.GetADepositOrWithdrawDetail.Response>(getADepositOrWithdrawDetailRequest);
             return response;
         }
         /*********************************** Funding Account Methods End ***********************************/
@@ -189,7 +188,7 @@ namespace BitmartApiClient
             var time = await GetSystemTime();
             var url = $"{BASE_URL}/spot/v2/orders?symbol={aSymbol}&status={(int)aStatus}&N={aNumberOfRecentRecords}";
             var getUserOrderHistoryRequest = Request.CreateRequestWithSignature(url, Key, Secret, Memo, "", time.Data.ServerTime.ToString(), RequestMethods.GET);
-            var response = await Request.Get<Models.TransactionOrder.GetUserOrderHistory.Response>(getUserOrderHistoryRequest);
+            var response = await Request.GetAsync<Models.TransactionOrder.GetUserOrderHistory.Response>(getUserOrderHistoryRequest);
             return response;
         }
 
@@ -199,7 +198,7 @@ namespace BitmartApiClient
             var url = $"{BASE_URL}/spot/v1/trades?symbol={aSymbol}&offset={anOffset}&limit={aLimit}";
             if (anOrderId != "") url += $"&order_id={anOrderId}";
             var getUserTradeHistoryRequest = Request.CreateRequestWithSignature(url, Key, Secret, Memo, "", time.Data.ServerTime.ToString(), RequestMethods.GET);
-            var response = await Request.Get<Models.TransactionOrder.GetUserTradeHistory.Response>(getUserTradeHistoryRequest);
+            var response = await Request.GetAsync<Models.TransactionOrder.GetUserTradeHistory.Response>(getUserTradeHistoryRequest);
             return response;
         }
 
@@ -209,7 +208,7 @@ namespace BitmartApiClient
             var url = $"{BASE_URL}/spot/v1/order_detail?order_id={anOrderId}";
             if (aClientOrderId != "") url += $"&clientOrderId={aClientOrderId}";
             var getOrderDetailRequest = Request.CreateRequestWithSignature(url, Key, Secret, Memo, "", time.Data.ServerTime.ToString(), RequestMethods.GET);
-            var response = await Request.Get<Models.TransactionOrder.GetOrderDetail.Response>(getOrderDetailRequest);
+            var response = await Request.GetAsync<Models.TransactionOrder.GetOrderDetail.Response>(getOrderDetailRequest);
             return response;
         }
 
