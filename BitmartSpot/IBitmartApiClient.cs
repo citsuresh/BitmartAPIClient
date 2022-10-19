@@ -9,7 +9,7 @@ namespace BitmartApiClient
     {
         Task<Models.TransactionOrder.BatchOrder.Response> BatchOrder(List<OrderParam> someOrderParams);
         Task<Model> CancelAllOrders(string aSymbol, Side aSide);
-        Task<Models.TransactionOrder.CancelOrder.Response> CancelOrder(int anOrderId);
+        Task<Models.TransactionOrder.CancelOrder.Response> CancelOrder(long anOrderId);
         Task<Models.FundingAccount.DepositAddress.Response> DepositAddress(string aCurrency);
         Task<Models.FundingAccount.GetAccountBalance.Response> GetAccountBalance();
         Task<Models.FundingAccount.GetADepositOrWithdrawDetail.Response> GetADepositOrWithdrawDetail(string anId);
@@ -22,6 +22,8 @@ namespace BitmartApiClient
         Task<Models.RestfulPublicMarketData.GetKLineStep.Response> GetKLineStep(string aSymbol);
         Task<Models.RestfulPublicMarketData.GetListOfTradingPairDetails.Response> GetListOfTradingPairDetails();
         Task<Models.RestfulPublicMarketData.GetListOfTradingPairs.Response> GetListOfTradingPairs();
+        Task<Models.TransactionOrder.GetOrders.Response> GetActiveOrders(string aSymbol, int aLimit = 10);
+        Task<Models.TransactionOrder.GetOrders.Response> GetCompletedOrders(string aSymbol, int aLimit = 10);
         Task<Models.TransactionOrder.GetOrderDetail.Response> GetOrderDetail(string anOrderId, string aClientOrderId = "");
         Task<Models.RestfulPublicMarketData.GetRecentTrades.Response> GetMyRecentTrades(string aSymbol);
         Task<Models.RestfulPublicMarketData.GetRecentTrades.Response> GetMyRecentTrades();

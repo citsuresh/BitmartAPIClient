@@ -112,8 +112,13 @@ namespace BitmartApiClient
                 var httpResponse = (HttpWebResponse)await aRequest.GetResponseAsync();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream() ?? throw new InvalidOperationException()))
                 {
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+
                     var result = await streamReader.ReadToEndAsync();
-                    return JsonSerializer.Deserialize<T>(result);
+                    return JsonSerializer.Deserialize<T>(result, options);
                 }
             }
             catch (Exception ex)

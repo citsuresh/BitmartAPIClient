@@ -202,6 +202,24 @@ namespace BitmartApiClient
             return response;
         }
 
+        public async Task<Models.TransactionOrder.GetOrders.Response> GetActiveOrders(string aSymbol, int aLimit = 10 )
+        {
+            var time = await GetSystemTime();
+            var url = $"{BASE_URL}/spot/v3/orders?symbol={aSymbol}&status=9&N={aLimit}";
+            var getOrdersRequest = Request.CreateRequestWithSignature(url, Key, Secret, Memo, "", time.Data.ServerTime.ToString(), RequestMethods.GET);
+            var response = await Request.GetAsync<Models.TransactionOrder.GetOrders.Response>(getOrdersRequest);
+            return response;
+        }
+        
+        public async Task<Models.TransactionOrder.GetOrders.Response> GetCompletedOrders(string aSymbol, int aLimit = 10 )
+        {
+            var time = await GetSystemTime();
+            var url = $"{BASE_URL}/spot/v3/orders?symbol={aSymbol}&status=10&N={aLimit}";
+            var getOrdersRequest = Request.CreateRequestWithSignature(url, Key, Secret, Memo, "", time.Data.ServerTime.ToString(), RequestMethods.GET);
+            var response = await Request.GetAsync<Models.TransactionOrder.GetOrders.Response>(getOrdersRequest);
+            return response;
+        }
+
         public async Task<Models.TransactionOrder.GetOrderDetail.Response> GetOrderDetail(string anOrderId, string aClientOrderId = "")
         {
             var time = await GetSystemTime();
@@ -222,7 +240,7 @@ namespace BitmartApiClient
             return response;
         }
 
-        public async Task<Models.TransactionOrder.CancelOrder.Response> CancelOrder(int anOrderId)
+        public async Task<Models.TransactionOrder.CancelOrder.Response> CancelOrder(long anOrderId)
         {
             var time = await GetSystemTime();
             var url = $"{BASE_URL}/spot/v2/cancel_order";

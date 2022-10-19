@@ -2,7 +2,8 @@
 
 namespace BitmartApiClient.Models.TransactionOrder.CancelOrder
 {
-    public class Data {
+    public class Data
+    {
         [JsonProperty("result")]
         public bool Result { get; set; }
     }
