@@ -36,5 +36,6 @@ namespace BitmartApiClient
         Task<Models.TransactionOrder.GetUserOrderHistory.Response> GetUserOrderHistory(string aSymbol, int aNumberOfRecentRecords, Status aStatus);
         Task<Models.TransactionOrder.GetUserTradeHistory.Response> GetUserTradeHistory(string aSymbol, int anOffset = 1, int aLimit = 10, string anOrderId = "");
         Task<Models.TransactionOrder.PlaceOrder.Response> PlaceOrder(string aSymbol, Side aSide, OrderType anOrderType, string aSize, string aPrice, string aNotional);
+        Task<Models.RestfulPublicMarketData.GetTradeFee.Response> GetTradeFee(string baseCurrency, string quoteCurrency);
     }
 }

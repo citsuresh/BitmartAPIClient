@@ -130,6 +130,14 @@ namespace BitmartApiClient
             return response;
         }
 
+        public async Task<Models.RestfulPublicMarketData.GetTradeFee.Response> GetTradeFee(string baseCurrency, string quoteCurrency)
+        {
+            var url = $"{BASE_URL}/spot/v1/trade_fee?symbol={baseCurrency}_{quoteCurrency}";
+            var getTradeFeeRequest = Request.CreateRequestWithKey(url, Key, RequestMethods.GET);
+            var response = await Request.GetAsync<Models.RestfulPublicMarketData.GetTradeFee.Response>(getTradeFeeRequest);
+            return response;
+        }
+
         /*********************************** Restful Public Market Data Methods End ***********************************/
 
         /*********************************** Funding Account Methods Start ***********************************/
@@ -253,7 +261,7 @@ namespace BitmartApiClient
         public async Task<Models.TransactionOrder.PlaceOrder.Response> PlaceOrder(string aSymbol, Models.TransactionOrder.Side aSide, Models.TransactionOrder.OrderType anOrderType, string aSize, string aPrice, string aNotional)
         {
             var time = await GetSystemTime();
-            var url = $"{BASE_URL}/spot/v1/submit_order";
+            var url = $"{BASE_URL}/spot/v2/submit_order";
             var body = Models.TransactionOrder.PlaceOrder.Request.New(aSymbol, aSide.ToString().ToLower(), anOrderType.ToString().ToLower(), aSize, aPrice, aNotional).ToJsonString();
             var placeOrderRequest = Request.CreateRequestWithSignature(url, Key, Secret, Memo, body, time.Data.ServerTime.ToString(), RequestMethods.POST);
             var response = await Request.Post<Models.TransactionOrder.PlaceOrder.Response>(placeOrderRequest, body);
